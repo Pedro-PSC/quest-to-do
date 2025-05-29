@@ -65,6 +65,15 @@ function App() {
     setQuests(JSON.parse(window.localStorage.getItem("quests")));
   }
 
+  function saveDeleteQuest(quest) {
+    let auxQuests = quests;
+
+    const filterAuxQuests = auxQuests.filter((auxQuest) => auxQuest.id !== quest.id);
+
+    localStorage.setItem("quests", JSON.stringify(filterAuxQuests));
+    getQuests();
+  }
+
   const concludedQuests = quests.filter((quest) => quest.status === "concluído");
   const notConcludedQuests = quests.filter((quest) => quest.status === "aberto");
 
@@ -80,6 +89,7 @@ function App() {
             quests={notConcludedQuests}
             saveEditQuest={saveEditQuest}
             saveConcludedQuest={saveConcludedQuest}
+            saveDeleteQuest={saveDeleteQuest}
           />
         </div>
 
@@ -89,6 +99,7 @@ function App() {
             quests={concludedQuests}
             saveEditQuest={saveEditQuest}
             saveConcludedQuest={saveConcludedQuest}
+            saveDeleteQuest={saveDeleteQuest}
           />
         </div>
 
